@@ -1,0 +1,14 @@
+.body {
+	height: calc(100vh - 115px);
+	display: flex;
+	flex-direction: column;
+	// background-color: cyan;
+
+	.array {
+		display: flex;
+
+		.array-item {
+			margin: 0 10px;
+		}
+	}
+}
