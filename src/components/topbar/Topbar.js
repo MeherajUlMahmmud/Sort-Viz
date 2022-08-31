@@ -16,7 +16,7 @@ const Topbar = (props) => {
 
 	return (
 		<div className="topbar">
-			<span className="header">Sorting Viz</span>
+			<span className="header">Sort Viz</span>
 			<div className="options">
 				{/* array length */}
 				<div className="option">
