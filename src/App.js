@@ -15,6 +15,8 @@ function App() {
 	const [speed, setSpeed] = useState("medium");
 	const [isSorting, setIsSorting] = useState(false);
 	const [array, setArray] = useState([]);
+	const [colors, setColors] = useState([]);
+	const [barWidth, setBarWidth] = useState(0);
 
 	useEffect(() => {
 		generateArray(arrayLength);
@@ -23,33 +25,43 @@ function App() {
 	// generate random array
 	const generateArray = () => {
 		const array = [];
+		const colors = [];
 		for (let i = 0; i < arrayLength; i++) {
 			array.push(Math.floor(Math.random() * arrayLength) + 1);
+			colors.push(`hsl(${Math.floor(Math.random() * 360)}, 100%, 50%)`);
 		}
+		setColors(colors);
 		setArray(array);
+		const barWidth = 100 / array.length + "%";
+		setBarWidth(barWidth);
 	};
 
 	const startAction = () => {
 		setIsSorting(true);
-		switch (algorithm) {
-			case "bubble":
-				setArray(bubbleSort(array));
-				break;
-			case "insertion":
-				setArray(insertionSort(array));
-				break;
-			case "merge":
-				setArray(mergeSort(array));
-				break;
-			case "quick":
-				setArray(quickSort(array));
-				break;
-			case "selection":
-				setArray(selectionSort(array));
-				break;
-			default:
-				break;
-		}
+		// sort array
+		const sortedArray = [...array];
+		sortedArray.sort((a, b) => a - b);
+		setArray(sortedArray);
+		// switch (algorithm) {
+		// 	case "bubble":
+		// 		setArray(bubbleSort(array));
+		// 		break;
+		// 	case "insertion":
+		// 		setArray(insertionSort(array));
+		// 		break;
+		// 	case "merge":
+		// 		setArray(mergeSort(array));
+		// 		break;
+		// 	case "quick":
+		// 		setArray(quickSort(array));
+		// 		break;
+		// 	case "selection":
+		// 		setArray(selectionSort(array));
+		// 		break;
+		// 	default:
+		// 		break;
+		// }
+		// setAlgorithm(algorithm);
 		setIsSorting(false);
 	};
 
@@ -66,7 +78,7 @@ function App() {
 				generateArray={generateArray}
 				startAction={startAction}
 			/>
-			<Body array={array} />
+			<Body array={array} colors={colors} barWidth={barWidth} />
 		</div>
 	);
 }
